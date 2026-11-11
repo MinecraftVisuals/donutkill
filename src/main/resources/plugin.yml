@@ -1,0 +1,6 @@
+name: KillGUI
+version: 1.0.0
+main: me.killgui.KillGUI
+api-version: '1.21.11'
+description: Opens a confirmation GUI instead of instantly killing you.
+author: YourName
