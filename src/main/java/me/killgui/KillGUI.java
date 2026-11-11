@@ -91,4 +91,36 @@ public class KillGUI extends JavaPlugin implements Listener {
 
         event.setCancelled(true);
 
-        if (!(event.getWhoClicked() instanceof Player
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (event.getClickedInventory() == null
+                || !(event.getClickedInventory().getHolder() instanceof KillHolder)) return;
+
+        int slot = event.getSlot();
+        if (slot == GREEN_SLOT) {
+            player.closeInventory();
+            player.setHealth(0.0);
+        } else if (slot == RED_SLOT) {
+            player.closeInventory();
+        }
+    }
+
+    @EventHandler
+    public void onDrag(InventoryDragEvent event) {
+        if (event.getView().getTopInventory().getHolder() instanceof KillHolder) {
+            event.setCancelled(true);
+        }
+    }
+
+    public static class KillHolder implements InventoryHolder {
+        private Inventory inventory;
+
+        public void setInventory(Inventory inventory) {
+            this.inventory = inventory;
+        }
+
+        @Override
+        public @NotNull Inventory getInventory() {
+            return inventory;
+        }
+    }
+}
