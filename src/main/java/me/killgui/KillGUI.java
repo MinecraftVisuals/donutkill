@@ -67,11 +67,11 @@ public class KillGUI extends JavaPlugin implements Listener {
                 Component.text("Are you sure?", NamedTextColor.DARK_RED));
         holder.setInventory(inv);
 
-        inv.setItem(RED_SLOT, button(Material.RED_STAINED_GLASS,
+        inv.setItem(RED_SLOT, button(Material.RED_STAINED_GLASS_PANE,
                 Component.text("Exit", NamedTextColor.RED)));
         inv.setItem(CENTER_SLOT, button(Material.SKELETON_SKULL,
                 Component.text("Kill yourself?", NamedTextColor.GRAY)));
-        inv.setItem(GREEN_SLOT, button(Material.LIME_STAINED_GLASS,
+        inv.setItem(GREEN_SLOT, button(Material.LIME_STAINED_GLASS_PANE,
                 Component.text("Kill me", NamedTextColor.GREEN)));
 
         player.openInventory(inv);
@@ -91,36 +91,4 @@ public class KillGUI extends JavaPlugin implements Listener {
 
         event.setCancelled(true);
 
-        if (!(event.getWhoClicked() instanceof Player player)) return;
-        if (event.getClickedInventory() == null
-                || !(event.getClickedInventory().getHolder() instanceof KillHolder)) return;
-
-        int slot = event.getSlot();
-        if (slot == GREEN_SLOT) {
-            player.closeInventory();
-            player.setHealth(0.0);
-        } else if (slot == RED_SLOT) {
-            player.closeInventory();
-        }
-    }
-
-    @EventHandler
-    public void onDrag(InventoryDragEvent event) {
-        if (event.getView().getTopInventory().getHolder() instanceof KillHolder) {
-            event.setCancelled(true);
-        }
-    }
-
-    public static class KillHolder implements InventoryHolder {
-        private Inventory inventory;
-
-        public void setInventory(Inventory inventory) {
-            this.inventory = inventory;
-        }
-
-        @Override
-        public @NotNull Inventory getInventory() {
-            return inventory;
-        }
-    }
-}
+        if (!(event.getWhoClicked() instanceof Player
